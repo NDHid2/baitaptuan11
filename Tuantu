@@ -1,0 +1,89 @@
+#include <iostream>
+#define MAX 100
+#define NIL -1
+using namespace std;
+
+struct Tree {
+    char data[MAX];
+    int maxNode;
+};
+
+void initTree(Tree &T) {
+    T.maxNode = 0;
+    for (int i = 0; i < MAX; i++)
+        T.data[i] = NIL;
+}
+
+void insertSequential(Tree &T, int idx, char val) {
+    if (idx >= MAX) return;
+    T.data[idx] = val;
+    if (idx + 1 > T.maxNode)
+        T.maxNode = idx + 1;
+}
+
+void printTree(Tree T) {
+    for (int i = 0; i < T.maxNode; i++) {
+        if (T.data[i] != NIL)
+            cout << T.data[i] << " ";
+        else
+            cout << ". ";
+    }
+    cout << endl;
+}
+
+//  Cây đầy đủ 
+void buildFullTree(Tree &T) {
+    initTree(T);
+    insertSequential(T, 0, 'A');
+    insertSequential(T, 1, 'B');
+    insertSequential(T, 2, 'C');
+    insertSequential(T, 3, 'D');
+}
+
+//  Cây lệch trái 
+void buildLeftSkewed(Tree &T) {
+    initTree(T);
+    insertSequential(T, 0, 'A');
+    insertSequential(T, 1, 'B');
+    insertSequential(T, 3, 'C');
+    insertSequential(T, 7, 'D');
+}
+
+//  Cây lệch phải 
+void buildRightSkewed(Tree &T) {
+    initTree(T);
+    insertSequential(T, 0, 'A');
+    insertSequential(T, 2, 'B');
+    insertSequential(T, 6, 'C');
+    insertSequential(T, 14, 'D');
+}
+
+//  Cây zíc-zắc 
+void buildZigZag(Tree &T) {
+    initTree(T);
+    insertSequential(T, 0, 'A');
+    insertSequential(T, 1, 'B');
+    insertSequential(T, 5, 'C');
+    insertSequential(T, 11, 'D');
+}
+
+int main() {
+    Tree T;
+    cout << "Cay day du: ";
+    buildFullTree(T);
+    printTree(T);
+
+    cout << "Cay lech trai: ";
+    buildLeftSkewed(T);
+    printTree(T);
+
+    cout << "Cay lech phai: ";
+    buildRightSkewed(T);
+    printTree(T);
+
+    cout << "Cay zic zac: ";
+    buildZigZag(T);
+    printTree(T);
+
+    return 0;
+}

@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    char data;
+    Node* left;
+    Node* right;
+    Node(char val) : data(val), left(nullptr), right(nullptr) {}
+};
+
+void printPreorder(Node* root) {
+    if (!root) return;
+    cout << root->data << " ";
+    printPreorder(root->left);
+    printPreorder(root->right);
+}
+
+//  Cây đầy đủ 
+Node* buildFullLinked() {
+    Node* root = new Node('A');
+    root->left = new Node('B');
+    root->right = new Node('C');
+    root->left->left = new Node('D');
+    return root;
+}
+
+//  Cây lệch trái 
+Node* buildLeftSkewedLinked() {
+    Node* root = new Node('A');
+    root->left = new Node('B');
+    root->left->left = new Node('C');
+    root->left->left->left = new Node('D');
+    return root;
+}
+
+//  Cây lệch phải 
+Node* buildRightSkewedLinked() {
+    Node* root = new Node('A');
+    root->right = new Node('B');
+    root->right->right = new Node('C');
+    root->right->right->right = new Node('D');
+    return root;
+}
+
+//  Cây zíc-zắc 
+Node* buildZigZagLinked() {
+    Node* root = new Node('A');
+    root->left = new Node('B');
+    root->left->right = new Node('C');
+    root->left->right->left = new Node('D');
+    return root;
+}
+
+int main() {
+    cout << "Cay day du (preorder): ";
+    printPreorder(buildFullLinked());
+    cout << endl;
+
+    cout << "Cay lech trai (preorder): ";
+    printPreorder(buildLeftSkewedLinked());
+    cout << endl;
+
+    cout << "Cay lech phai (preorder): ";
+    printPreorder(buildRightSkewedLinked());
+    cout << endl;
+
+    cout << "Cay zic zac (preorder): ";
+    printPreorder(buildZigZagLinked());
+    cout << endl;
+
+    return 0;
+}
